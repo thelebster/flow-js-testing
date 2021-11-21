@@ -83,7 +83,9 @@ export class Emulator {
 
     this.logging = logging;
     this.filters = [];
-    this.process = spawn("flow", ["emulator", "-v", "--http-port", port, "--port", grpc]);
+    this.process = spawn("flow", ["emulator", "-v", "--http-port", port, "--port", grpc], {
+      maxBuffer: 10 * 1024 * 1024, // 10MB
+    });
     this.logProcessor = (item) => item;
 
     return new Promise((resolve, reject) => {
